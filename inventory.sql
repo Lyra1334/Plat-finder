@@ -1,7 +1,7 @@
 CREATE TABLE itens (
     slug VARCHAR NOT NULL,
     name VARCHAR,
-    price smallint,
+    price real,
     type varchar,
     amount smallint,
     PRIMARY KEY(slug)
@@ -20,4 +20,4 @@ CREATE TABLE set_parts(
         FOREIGN KEY(part_slug)
             REFERENCES itens(slug)
         ON DELETE CASCADE
-)
+);
