@@ -2,6 +2,7 @@ import psycopg2, requests
 
 url_base = 'https://api.warframe.market/v2/'
 itemsInDB = list()
+isSet = False
 
 json = requests.get(url_base+"items").json()
 
@@ -12,16 +13,10 @@ cursor.execute("SELECT slug FROM itens;")
 itemsInDB = cursor.fetchall()
 
 for x in range(len(json["data"])):
-    if 'prime' in json["data"][x]["tags"]:
+    if 'prime' in json["data"][x]["tags"] and json["data"][x]["slug"] not in itemsInDB and 'mod' not in json["data"][x]["tags"]:
         if 'component' in json["data"][x]["tags"]:
-            pass #é parte
-        if 'warframe' in json["data"][x]["tags"]:
-            pass #é frame
-        if 'primary' in json["data"][x]["tags"]:
-            pass #é arma
-        if 'secondary' in json["data"][x]["tags"]:
-            pass #é auxiliar
-        if 'melee' in json["data"][x]["tags"]:
-            pass #é melee
+            isSet = False
+        else:
+            isSet = True
 
         
